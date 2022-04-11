@@ -10,6 +10,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
+  # 闲鱼 flutter_boost
+  flutter_boost:
+    git:
+      url: 'https://github.com/alibaba/flutter_boost.git'
+      ref: 'v3.0-release.1'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
