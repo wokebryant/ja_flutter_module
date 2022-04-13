@@ -14,7 +14,7 @@ dependencies:
   flutter_boost:
     git:
       url: 'https://github.com/alibaba/flutter_boost.git'
-      ref: 'v3.0-release.1'
+      ref: 'v3.0-null-safety-release.1'
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +23,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - images/
   module:
     androidX: true
     androidPackage: com.example.ja_flutter_module

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ja_flutter_module/utils/DeviceUtil.dart';
+import 'package:flutter_boost/flutter_boost.dart';
+import 'package:ja_flutter_module/utils/device_util.dart';
+import '../ui/style.dart';
+import '../ui/widget.dart';
 
 /// WorkBox个人信息页面
 class WBPersonalPage extends StatelessWidget {
@@ -16,13 +19,13 @@ class WBPersonalPage extends StatelessWidget {
 
   Widget _buildPersonalPage(BuildContext context) {
     /// 标题栏
-    var title = ListTile(
-      leading: const Icon(Icons.arrow_back_sharp),
-      iconColor: Colors.black,
-      title: Text(
-        "个人信息", style: userInfoTextStyle(fontSize: 18)),
-      onTap: () => SystemNavigator.pop()
-    );
+    var title = wbPageTitle(title: "个人信息", listener: () {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      } else {
+        SystemNavigator.pop();
+      }
+    });
 
     /// 用户等级，工资信息
     final userInfoLayout = Container(
@@ -72,7 +75,10 @@ class WBPersonalPage extends StatelessWidget {
     /// 工作明细按钮
     final workRecordBtn = Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: _buildButton("工作明细记录", () { })
+      child: _buildButton("工作明细记录", () {
+        // BoostNavigator.instance.push("wb_record_page");
+        Navigator.of(context).pushNamed("wb_record_page");
+      })
     );
 
     return Scaffold(
@@ -124,37 +130,13 @@ class WBPersonalPage extends StatelessWidget {
       // 接受Native返回值
     }
   }
+
+  /// 跳转WorkBox提取工资页面(Compose页面) Boost
+  Future<void> _jumpToWBExtractSalaryPageWithBoost() async {
+    BoostNavigator.instance.push("native_wb_record_page");
+  }
   
 }
-
-/// 按钮样式
-final outlineButtonStyle = OutlinedButton.styleFrom(
-  shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0)
-  ),
-  side: const BorderSide(
-      width: 2,
-      color: Colors.black,
-      style: BorderStyle.solid
-  ),
-  minimumSize: const Size(double.infinity, 50)
-);
-
-/// 按钮文本样式
-const buttonTextStyle = TextStyle(
-    color: Colors.black,
-    fontSize: 16,
-    fontWeight: FontWeight.w600
-);
-
-/// 用户信息文本样式
-TextStyle userInfoTextStyle({
-  Color? color = Colors.black,
-  double? fontSize,
-}) => TextStyle(
-    color: color,
-    fontSize: fontSize
-);
 
 class SalaryRecord {
   final String date;
